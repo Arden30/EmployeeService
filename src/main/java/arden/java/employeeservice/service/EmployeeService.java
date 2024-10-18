@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,9 +20,16 @@ public class EmployeeService {
         Optional<Employee> employee = employeeRepository.findEmployeeById(id);
 
         if (employee.isEmpty()) {
-            log.error("Работник с id " + id + " не найден");
+            log.error("Работник с id {} не найден", id);
         } else log.info(employee.get().toString());
 
         return employee;
+    }
+
+    public List<String> groupByName() {
+        List<String> employees = employeeRepository.groupByName();
+        log.info("Сгруппированный список сотрудников по имени: {}", employees);
+
+        return employees;
     }
 }
