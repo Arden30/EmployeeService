@@ -1,0 +1,40 @@
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  postgresql:
+    driver: local
+
+services:
+  postgresql:
+    image: postgres:15
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  app:
+    build:
+      context: .
+    depends_on:
+      - postgresql
+    env_file:
+      - .env
+    networks:
+      - backend
+    environment:
+      - HOST=${HOST}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+    ports:
+      - '8080:8080'
