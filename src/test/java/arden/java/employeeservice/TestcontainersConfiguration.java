@@ -15,7 +15,6 @@ class TestcontainersConfiguration {
             .withDatabaseName("postgres")
             .withUsername("postgres")
             .withPassword("postgres");
-    ;
 
     @Bean
     @ServiceConnection
