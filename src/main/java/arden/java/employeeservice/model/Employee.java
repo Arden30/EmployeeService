@@ -25,7 +25,6 @@ public class Employee {
     @Column(nullable = false)
     private String surname;
 
-    @CreationTimestamp
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 

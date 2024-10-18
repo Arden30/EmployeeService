@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,14 @@ public class EmployeeService {
 
     public List<String> groupByName() {
         List<String> employees = employeeRepository.groupByName();
-        log.info("Сгруппированный список сотрудников по имени: {}", employees);
+        log.info("Сгруппированный список имен сотрудников: {}", employees);
+
+        return employees;
+    }
+
+    public List<Employee> findBetween(LocalDate start, LocalDate end) {
+        List<Employee> employees = employeeRepository.findBetween(start, end);
+        log.info("Список сотрудников, родившихся в период с {} по {}: {}", start, end, employees);
 
         return employees;
     }
